@@ -42,5 +42,8 @@ int main(){
         cout << array_to_reverse[i] << std::internal << std::setw(10);
     }
 
+    delete[] array;
+    delete[] array_to_reverse;
+
     return 0;
 }
