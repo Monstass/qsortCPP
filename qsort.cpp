@@ -10,14 +10,12 @@
  3. Repeat recursively until we reach an array of 1 element.
 */
 
+#include "Qsort.h"
 
-#include <algorithm>
-#include "qsort.h"
-
-void qsort(int* array, int start, int end){
+void Sort::qsort(int* array, int start, int end){
     int low = start;
     int high = end;
-    int pivot = array[(low + high) / 2];
+    int pivot = array[(low +  high) / 2];
 
     while (low <= high){
         while (array[low] < pivot){
@@ -27,16 +25,49 @@ void qsort(int* array, int start, int end){
             --high;
         }
         if (low <= high){
-            std::swap(array[low], array[high]);
+            int temp = array[low];
+            array[low] = array[high];
+            array[high] = temp;
             ++low;
             --high;
         }
-    }
 
-    if (low < end){
-        qsort(array, low, end);
-    }
-    if (high > start){
-        qsort(array, start, high);
+        if (low <= end){
+            qsort(array, low, end);
+        }
+        if (high >= start){
+            qsort(array, start, high);
+        }
     }
 }
+
+void Sort::qsortReverse(int* array, int start, int end){
+    int low = start;
+    int high = end;
+    int pivot = array[(low +  high) / 2];
+
+    while (low <= high){
+        while (array[low] > pivot){
+            ++low;
+        }
+        while (array[high] < pivot){
+            --high;
+        }
+        if (low <= high){
+            int temp = array[low];
+            array[low] = array[high];
+            array[high] = temp;
+            ++low;
+            --high;
+        }
+
+        if (low <= end){
+            qsortReverse(array, low, end);
+        }
+        if (high >= start){
+            qsortReverse(array, start, high);
+        }
+    }
+}
+
+Sort::~Sort(){}
